@@ -2173,6 +2173,174 @@ def rtn_atexit(se: 'SymbolicExecutor', pstate: 'ProcessState'):
     return 0
 
 
+# ============================================================================
+# Windows-specific stubs
+# ============================================================================
+
+def rtn___security_check_cookie(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    The __security_check_cookie (Windows /GS buffer overrun check).
+    This is the Windows equivalent of __stack_chk_fail but is called on
+    every function return to validate the cookie. If the cookie is valid
+    the function simply returns; otherwise it would terminate the process.
+    In our symbolic context we always let it succeed.
+    """
+    logger.debug('__security_check_cookie hooked')
+    return None
+
+
+def rtn___security_init_cookie(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    The __security_init_cookie (Windows /GS initialization).
+    Initializes the global security cookie. We just let it succeed.
+    """
+    logger.debug('__security_init_cookie hooked')
+    return None
+
+
+def rtn__initterm(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    The _initterm behavior (MSVCRT).
+    Walks a table of function pointers and calls each one. In our
+    emulation we skip it entirely.
+    """
+    logger.debug('_initterm hooked (skipped)')
+    return None
+
+
+def rtn__initterm_e(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    The _initterm_e behavior (MSVCRT).
+    Like _initterm but returns 0 on success.
+    """
+    logger.debug('_initterm_e hooked (skipped)')
+    return 0
+
+
+def rtn_HeapAlloc(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    HANDLE HeapAlloc(HANDLE hHeap, DWORD dwFlags, SIZE_T dwBytes);
+    Windows heap allocation. We ignore the heap handle and flags.
+    """
+    logger.debug('HeapAlloc hooked')
+    size = pstate.get_argument_value(2)
+    if size == 0:
+        size = 1
+    ptr = pstate.heap_allocator.alloc(size)
+    return ptr
+
+
+def rtn_HeapFree(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    BOOL HeapFree(HANDLE hHeap, DWORD dwFlags, LPVOID lpMem);
+    Windows heap free. We ignore the heap handle and flags.
+    """
+    logger.debug('HeapFree hooked')
+    ptr = pstate.get_argument_value(2)
+    if ptr:
+        pstate.heap_allocator.free(ptr)
+    return 1  # TRUE (success)
+
+
+def rtn_HeapReAlloc(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    LPVOID HeapReAlloc(HANDLE hHeap, DWORD dwFlags, LPVOID lpMem, SIZE_T dwBytes);
+    Windows heap reallocation. We ignore the heap handle and flags.
+    """
+    logger.debug('HeapReAlloc hooked')
+    ptr = pstate.get_argument_value(2)
+    size = pstate.get_argument_value(3)
+    if ptr == 0:
+        return pstate.heap_allocator.alloc(size) if size else 0
+    if size == 0:
+        pstate.heap_allocator.free(ptr)
+        return 0
+    # Simple realloc: alloc new, copy old, free old
+    new_ptr = pstate.heap_allocator.alloc(size)
+    old_mmap = pstate.heap_allocator.alloc_pool.get(ptr)
+    old_size = old_mmap.size if old_mmap else size
+    copy_size = min(old_size, size)
+    data = pstate.memory.read(ptr, copy_size)
+    pstate.memory.write(new_ptr, data)
+    pstate.heap_allocator.free(ptr)
+    return new_ptr
+
+
+def rtn_GetProcessHeap(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    HANDLE GetProcessHeap(void);
+    Returns a pseudo handle to the process heap.
+    """
+    logger.debug('GetProcessHeap hooked')
+    return 0x1337  # Fake heap handle
+
+
+def rtn_ExitProcess(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    void ExitProcess(UINT uExitCode);
+    Windows process termination.
+    """
+    logger.debug('ExitProcess hooked')
+    pstate.stop = True
+    return None
+
+
+def rtn_GetLastError(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    DWORD GetLastError(void);
+    Returns the last-error code. We return 0 (ERROR_SUCCESS).
+    """
+    logger.debug('GetLastError hooked')
+    return 0
+
+
+def rtn_SetLastError(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    void SetLastError(DWORD dwErrCode);
+    Sets the last-error code. We ignore it.
+    """
+    logger.debug('SetLastError hooked')
+    return None
+
+
+def rtn_IsDebuggerPresent(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    BOOL IsDebuggerPresent(void);
+    Returns FALSE (no debugger present).
+    """
+    logger.debug('IsDebuggerPresent hooked')
+    return 0
+
+
+def rtn_GetCommandLineA(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    LPSTR GetCommandLineA(void);
+    Returns a pointer to the command line string.
+    """
+    logger.debug('GetCommandLineA hooked')
+    cmdline = b" ".join(x.encode("latin-1") if isinstance(x, str) else x
+                        for x in se.config.program_argv) + b"\x00"
+    ptr = pstate.heap_allocator.alloc(len(cmdline))
+    pstate.memory.write(ptr, cmdline)
+    return ptr
+
+
+def rtn_GetCommandLineW(se: 'SymbolicExecutor', pstate: 'ProcessState'):
+    """
+    LPWSTR GetCommandLineW(void);
+    Returns a pointer to the wide command line string.
+    We return an ASCII version for simplicity.
+    """
+    logger.debug('GetCommandLineW hooked')
+    cmdline = b" ".join(x.encode("latin-1") if isinstance(x, str) else x
+                        for x in se.config.program_argv)
+    # Encode as UTF-16LE
+    wide = cmdline.decode("latin-1").encode("utf-16-le") + b"\x00\x00"
+    ptr = pstate.heap_allocator.alloc(len(wide))
+    pstate.memory.write(ptr, wide)
+    return ptr
+
+
 SUPPORTED_ROUTINES = {
     # TODO:
     #   - tolower
@@ -2257,6 +2425,37 @@ SUPPORTED_ROUTINES = {
 
     'isspace':                 rtn_isspace,
     # 'tolower':                 rtn_tolower,
+
+    # ---- Windows MSVCRT / UCRT aliases ----
+    # These are the names used by PE binaries compiled with MSVC.
+    # Many C standard library functions share the same name on Windows, so only
+    # Windows-specific variants or name differences need explicit aliases.
+    '_malloc':                 rtn_malloc,
+    '_free':                   rtn_free,
+    '_calloc':                 rtn_calloc,
+    '_realloc':                rtn_realloc,
+    '_exit':                   rtn_exit,
+    '_strdup':                 rtn_strdup,
+    '_stricmp':                rtn_strcasecmp,
+    '_strnicmp':               rtn_strncasecmp,
+    '_snprintf':               rtn_sprintf,    # approximate
+    '_sprintf':                rtn_sprintf,
+
+    # ---- Windows API stubs ----
+    '__security_check_cookie': rtn___security_check_cookie,
+    '__security_init_cookie':  rtn___security_init_cookie,
+    '_initterm':               rtn__initterm,
+    '_initterm_e':             rtn__initterm_e,
+    'HeapAlloc':               rtn_HeapAlloc,
+    'HeapFree':                rtn_HeapFree,
+    'HeapReAlloc':             rtn_HeapReAlloc,
+    'GetProcessHeap':          rtn_GetProcessHeap,
+    'ExitProcess':             rtn_ExitProcess,
+    'GetLastError':            rtn_GetLastError,
+    'SetLastError':            rtn_SetLastError,
+    'IsDebuggerPresent':       rtn_IsDebuggerPresent,
+    'GetCommandLineA':         rtn_GetCommandLineA,
+    'GetCommandLineW':         rtn_GetCommandLineW,
 }
 
 

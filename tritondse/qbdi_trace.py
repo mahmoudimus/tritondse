@@ -25,16 +25,19 @@ setjmp_data = {}
 libdl = None
 
 
-class Dl_info(ctypes.Structure):
-    _fields_ = [
-        ('dli_fname', ctypes.c_char_p),
-        ('dli_fbase', ctypes.c_void_p),
-        ('dli_sname', ctypes.c_char_p),
-        ('dli_saddr', ctypes.c_void_p)
-    ]
+if sys.platform != 'win32':
+    class Dl_info(ctypes.Structure):
+        _fields_ = [
+            ('dli_fname', ctypes.c_char_p),
+            ('dli_fbase', ctypes.c_void_p),
+            ('dli_sname', ctypes.c_char_p),
+            ('dli_saddr', ctypes.c_void_p)
+        ]
 
 
 def dladdr(addr):
+    if sys.platform == 'win32':
+        return None  # dladdr is not available on Windows
     res = Dl_info()
     libdl.dladdr(ctypes.cast(addr, ctypes.c_void_p), ctypes.byref(res))
 
@@ -74,12 +77,13 @@ def hook_post_longjmp(vm, state, gpr, fpr, data):
 
 def handle_exec_transfer_call(vm, state, gpr, fpr, data):
     if is_symbol("_setjmp", gpr.rip):
-        arg1 = gpr.rdi      # get env argument.
+        # First argument: rdi on SysV (Linux), rcx on Windows x64
+        arg1 = gpr.rcx if sys.platform == 'win32' else gpr.rdi
 
         setjmp_data[arg1] = {}
         setjmp_data[arg1]['setjmp_cbk_id'] = vm.addVMEventCB(pyqbdi.EXEC_TRANSFER_RETURN, hook_post_setjmp, arg1)
     elif is_symbol("longjmp", gpr.rip):
-        arg1 = gpr.rdi      # get env argument.
+        arg1 = gpr.rcx if sys.platform == 'win32' else gpr.rdi
 
         setjmp_data[arg1]['longjmp_cbk_id'] = vm.addVMEventCB(pyqbdi.EXEC_TRANSFER_RETURN, hook_post_longjmp, arg1)
 
@@ -208,12 +212,13 @@ def pyqbdipreload_on_run(vm, start, stop):
 
     s = time.time()
 
-    # Load dl library.
-    libdl_path = ctypes.util.find_library('dl')
-    if libdl_path is None:
-        raise Exception('Unable to found dl library')
-    libdl = ctypes.cdll.LoadLibrary(libdl_path)
-    libdl.dladdr.argtypes = (ctypes.c_void_p, ctypes.POINTER(Dl_info))
+    # Load dl library (POSIX only; dladdr is not available on Windows).
+    if sys.platform != 'win32':
+        libdl_path = ctypes.util.find_library('dl')
+        if libdl_path is None:
+            raise Exception('Unable to find dl library')
+        libdl = ctypes.cdll.LoadLibrary(libdl_path)
+        libdl.dladdr.argtypes = (ctypes.c_void_p, ctypes.POINTER(Dl_info))
 
     # Read parameters.
     strat = os.getenv('PYQBDIPRELOAD_COVERAGE_STRATEGY', 'BLOCK')

@@ -6,7 +6,7 @@ from collections import namedtuple
 from triton import OPCODE, TritonContext
 
 # local imports
-from tritondse.types import Architecture
+from tritondse.types import Architecture, Platform
 
 Arch = namedtuple("Arch", "ret_reg pc_reg bp_reg sp_reg sys_reg reg_args halt_inst syscall_inst")
 
@@ -26,8 +26,28 @@ ARCHS = {
     Architecture.ARM32:   Arch('r0', 'pc', 'r11', 'sp', 'r7',
                                ['r0', 'r1', 'r2', 'r3'],
                                OPCODE.ARM32.HLT,
-                               [OPCODE.ARM32.SVC])
+                               [OPCODE.ARM32.SVC]),
+    # Windows x64 uses the Microsoft x64 calling convention: rcx, rdx, r8, r9
+    (Architecture.X86_64, Platform.WINDOWS): Arch('rax', 'rip', 'rbp', 'rsp', 'rax',
+                               ['rcx', 'rdx', 'r8', 'r9'],
+                               OPCODE.X86.HLT,
+                               [OPCODE.X86.SYSCALL, OPCODE.X86.SYSENTER]),
 }
+
+
+def get_arch_info(architecture: Architecture, platform: Platform = None) -> Arch:
+    """
+    Retrieve the Arch info for a given architecture and optional platform.
+    If a platform-specific entry exists (e.g., Windows x64), it is preferred
+    over the generic architecture entry.
+
+    :param architecture: Target architecture
+    :param platform: Target platform (optional)
+    :return: Arch named tuple
+    """
+    if platform and (architecture, platform) in ARCHS:
+        return ARCHS[(architecture, platform)]
+    return ARCHS[architecture]
 
 
 class CpuState(dict):
@@ -154,6 +174,7 @@ def local_architecture() -> Architecture:
     """
     arch_m = {"i386": Architecture.X86,
               "x86_64": Architecture.X86_64,
+              "AMD64": Architecture.X86_64,
               "armv7l": Architecture.ARM32,
               "aarch64": Architecture.AARCH64}
     return arch_m[platform.machine()]

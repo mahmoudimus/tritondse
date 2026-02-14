@@ -142,11 +142,14 @@ class Program(Loader):
     def relocation_enum(self):
         """
         LIEF relocation enum associated with the current
-        architecture of the binary.
+        architecture of the binary. Only applicable to ELF binaries.
 
         :return: LIEF relocation enum
         :rtype: dict
         """
+        if self.format != Format.ELF:
+            return {}
+
         arch_mapper = {
             lief._lief.ELF.ARCH.AARCH64: "AARCH64",
             lief._lief.ELF.ARCH.ARM: "ARM",
@@ -189,6 +192,30 @@ class Program(Loader):
                     if seg.virtual_size != len(seg.content):  # pad with zeros (as it might be .bss)
                         content += bytearray([0]) * (seg.virtual_size - seg.physical_size)
                     yield LoadableSegment(seg.virtual_address, perms=Perm(int(seg.flags)), content=bytes(content), name=f"seg{i}")
+        elif self.format == Format.PE:
+            pe = self._binary.concrete
+            # Map the PE header itself (needed for PE metadata access at runtime)
+            header_size = pe.optional_header.sizeof_headers
+            header_content = bytes(self._binary.abstract.get_content_from_virtual_address(pe.imagebase, header_size))
+            if header_content:
+                yield LoadableSegment(pe.imagebase, perms=Perm.R, content=header_content, name="pe-header")
+
+            for i, sec in enumerate(pe.sections):
+                # Derive permissions from PE section characteristics
+                perms = Perm.R  # always readable
+                chars = sec.characteristics
+                if chars & lief.PE.Section.CHARACTERISTICS.MEM_WRITE:
+                    perms |= Perm.W
+                if chars & lief.PE.Section.CHARACTERISTICS.MEM_EXECUTE:
+                    perms |= Perm.X
+
+                vaddr = pe.imagebase + sec.virtual_address
+                vsize = sec.virtual_size
+                content = bytearray(sec.content)
+                # Pad with zeros if virtual size exceeds raw content (e.g., .bss)
+                if vsize > len(content):
+                    content += bytearray(vsize - len(content))
+                yield LoadableSegment(vaddr, perms=perms, content=bytes(content), name=sec.name.rstrip('\x00'))
         else:
             raise NotImplementedError(f"memory segments not implemented for: {self.format.name}")
 
@@ -217,6 +244,16 @@ class Program(Loader):
             except Exception:
                 logger.error('Something wrong with the pltgot relocations')
 
+        elif self.format == Format.PE:
+            pe = self._binary.concrete
+            # Iterate over IAT (Import Address Table) entries
+            for imp in pe.imports:
+                for entry in imp.entries:
+                    if entry.name:
+                        # IAT entry address = imagebase + entry.iat_address
+                        iat_addr = pe.imagebase + entry.iat_address
+                        yield entry.name, iat_addr
+
         else:
             raise NotImplementedError(f"Imported functions relocations not implemented for: {self.format.name}")
 
@@ -235,6 +272,11 @@ class Program(Loader):
                 # if rel_enum(rel.type) == rel_enum.COPY and rel.has_symbol:
                     if rel.symbol.is_variable:
                         yield rel.symbol.name, rel.address
+        elif self.format == Format.PE:
+            # PE files don't have the same variable symbol relocation model as ELF.
+            # Data imports in PE are handled via IAT entries similarly to functions.
+            # Variable symbols are not commonly distinguished; yield nothing for now.
+            yield from ()
         else:
             raise NotImplementedError(f"Imported symbols relocations not implemented for: {self.format.name}")
 

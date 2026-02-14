@@ -15,7 +15,7 @@ from tritondse.thread_context import ThreadContext
 from tritondse.heap_allocator import HeapAllocator
 from tritondse.types import Architecture, Addr, ByteSize, BitSize, PathConstraint, Register, Expression, \
                             AstNode, Registers, SolverStatus, Model, SymbolicVariable, ArchMode, Perm, FileDesc, Endian
-from tritondse.arch import ARCHS, CpuState
+from tritondse.arch import ARCHS, CpuState, get_arch_info
 from tritondse.loaders.loader import Loader
 from tritondse.memory import Memory, MemoryAccessViolation
 import tritondse.logging
@@ -417,18 +417,21 @@ class ProcessState(object):
         """
         return getattr(self.registers, self._archinfo.reg_args[i])
 
-    def initialize_context(self, arch: Architecture):
+    def initialize_context(self, arch: Architecture, platform=None):
         """
-        Initialize the context with the given architecture
+        Initialize the context with the given architecture and optional platform.
 
         .. todo:: Protecting that function
 
         :param arch: The architecture to initialize
         :type arch: Architecture
+        :param platform: The platform (e.g., Platform.WINDOWS) to select the
+                         appropriate calling convention. If None, the default
+                         (Linux/SysV) convention is used.
         :return: None
         """
         self.architecture = arch
-        self._archinfo = ARCHS[self.architecture]
+        self._archinfo = get_arch_info(self.architecture, platform)
         self.cpu = CpuState(self.tt_ctx, self._archinfo)
 
     def unpack_integer(self, data: bytes, size: int) -> int:
@@ -1195,7 +1198,7 @@ class ProcessState(object):
         pstate = ProcessState(loader.endianness)
 
         # Initialize the architecture of the process state
-        pstate.initialize_context(loader.architecture)
+        pstate.initialize_context(loader.architecture, loader.platform)
 
         # Set the program counter to points to entrypoint
         pstate.cpu.program_counter = loader.entry_point
