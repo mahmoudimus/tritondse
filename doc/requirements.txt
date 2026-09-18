@@ -1,5 +1,5 @@
 sphinx_rtd_theme
-sphinx
+sphinx<9  # enum-tools 0.13.0 autoenum breaks on sphinx 9 (sphinx.ext.autodoc no longer exports logger)
 breathe
 sphinx-intl
 nbsphinx
