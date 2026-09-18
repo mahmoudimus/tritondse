@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tritondse.arch &mdash; TritonDSE 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
@@ -111,23 +111,23 @@
 <span class="c1"># local imports</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">tritondse.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Architecture</span>
 
-<span class="n">Arch</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Arch&quot;</span><span class="p">,</span> <span class="s2">&quot;ret_reg pc_reg bp_reg sp_reg sys_reg reg_args halt_inst syscall_inst&quot;</span><span class="p">)</span>
+<span class="n">Arch</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">"Arch"</span><span class="p">,</span> <span class="s2">"ret_reg pc_reg bp_reg sp_reg sys_reg reg_args halt_inst syscall_inst"</span><span class="p">)</span>
 
 <span class="n">ARCHS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">Architecture</span><span class="o">.</span><span class="n">X86</span><span class="p">:</span>     <span class="n">Arch</span><span class="p">(</span><span class="s1">&#39;eax&#39;</span><span class="p">,</span> <span class="s1">&#39;eip&#39;</span><span class="p">,</span> <span class="s1">&#39;ebp&#39;</span><span class="p">,</span> <span class="s1">&#39;esp&#39;</span><span class="p">,</span> <span class="s1">&#39;eax&#39;</span><span class="p">,</span>
+    <span class="n">Architecture</span><span class="o">.</span><span class="n">X86</span><span class="p">:</span>     <span class="n">Arch</span><span class="p">(</span><span class="s1">'eax'</span><span class="p">,</span> <span class="s1">'eip'</span><span class="p">,</span> <span class="s1">'ebp'</span><span class="p">,</span> <span class="s1">'esp'</span><span class="p">,</span> <span class="s1">'eax'</span><span class="p">,</span>
                                <span class="p">[],</span>
                                <span class="n">OPCODE</span><span class="o">.</span><span class="n">X86</span><span class="o">.</span><span class="n">HLT</span><span class="p">,</span>
                                <span class="p">[</span><span class="n">OPCODE</span><span class="o">.</span><span class="n">X86</span><span class="o">.</span><span class="n">SYSCALL</span><span class="p">,</span> <span class="n">OPCODE</span><span class="o">.</span><span class="n">X86</span><span class="o">.</span><span class="n">SYSENTER</span><span class="p">]),</span>  <span class="c1"># ignore int 80</span>
-    <span class="n">Architecture</span><span class="o">.</span><span class="n">X86_64</span><span class="p">:</span>  <span class="n">Arch</span><span class="p">(</span><span class="s1">&#39;rax&#39;</span><span class="p">,</span> <span class="s1">&#39;rip&#39;</span><span class="p">,</span> <span class="s1">&#39;rbp&#39;</span><span class="p">,</span> <span class="s1">&#39;rsp&#39;</span><span class="p">,</span> <span class="s1">&#39;rax&#39;</span><span class="p">,</span>
-                               <span class="p">[</span><span class="s1">&#39;rdi&#39;</span><span class="p">,</span> <span class="s1">&#39;rsi&#39;</span><span class="p">,</span> <span class="s1">&#39;rdx&#39;</span><span class="p">,</span> <span class="s1">&#39;rcx&#39;</span><span class="p">,</span> <span class="s1">&#39;r8&#39;</span><span class="p">,</span> <span class="s1">&#39;r9&#39;</span><span class="p">],</span>
+    <span class="n">Architecture</span><span class="o">.</span><span class="n">X86_64</span><span class="p">:</span>  <span class="n">Arch</span><span class="p">(</span><span class="s1">'rax'</span><span class="p">,</span> <span class="s1">'rip'</span><span class="p">,</span> <span class="s1">'rbp'</span><span class="p">,</span> <span class="s1">'rsp'</span><span class="p">,</span> <span class="s1">'rax'</span><span class="p">,</span>
+                               <span class="p">[</span><span class="s1">'rdi'</span><span class="p">,</span> <span class="s1">'rsi'</span><span class="p">,</span> <span class="s1">'rdx'</span><span class="p">,</span> <span class="s1">'rcx'</span><span class="p">,</span> <span class="s1">'r8'</span><span class="p">,</span> <span class="s1">'r9'</span><span class="p">],</span>
                                <span class="n">OPCODE</span><span class="o">.</span><span class="n">X86</span><span class="o">.</span><span class="n">HLT</span><span class="p">,</span>
                                <span class="p">[</span><span class="n">OPCODE</span><span class="o">.</span><span class="n">X86</span><span class="o">.</span><span class="n">SYSCALL</span><span class="p">,</span> <span class="n">OPCODE</span><span class="o">.</span><span class="n">X86</span><span class="o">.</span><span class="n">SYSENTER</span><span class="p">]),</span>  <span class="c1"># ignore int 80</span>
-    <span class="n">Architecture</span><span class="o">.</span><span class="n">AARCH64</span><span class="p">:</span> <span class="n">Arch</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="s1">&#39;pc&#39;</span><span class="p">,</span> <span class="s1">&#39;sp&#39;</span><span class="p">,</span> <span class="s1">&#39;sp&#39;</span><span class="p">,</span> <span class="s1">&#39;x8&#39;</span><span class="p">,</span>
-                               <span class="p">[</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">,</span> <span class="s1">&#39;x3&#39;</span><span class="p">,</span> <span class="s1">&#39;x4&#39;</span><span class="p">,</span> <span class="s1">&#39;x5&#39;</span><span class="p">,</span> <span class="s1">&#39;x6&#39;</span><span class="p">,</span> <span class="s1">&#39;x7&#39;</span><span class="p">],</span>
+    <span class="n">Architecture</span><span class="o">.</span><span class="n">AARCH64</span><span class="p">:</span> <span class="n">Arch</span><span class="p">(</span><span class="s1">'x0'</span><span class="p">,</span> <span class="s1">'pc'</span><span class="p">,</span> <span class="s1">'sp'</span><span class="p">,</span> <span class="s1">'sp'</span><span class="p">,</span> <span class="s1">'x8'</span><span class="p">,</span>
+                               <span class="p">[</span><span class="s1">'x0'</span><span class="p">,</span> <span class="s1">'x1'</span><span class="p">,</span> <span class="s1">'x2'</span><span class="p">,</span> <span class="s1">'x3'</span><span class="p">,</span> <span class="s1">'x4'</span><span class="p">,</span> <span class="s1">'x5'</span><span class="p">,</span> <span class="s1">'x6'</span><span class="p">,</span> <span class="s1">'x7'</span><span class="p">],</span>
                                <span class="n">OPCODE</span><span class="o">.</span><span class="n">AARCH64</span><span class="o">.</span><span class="n">HLT</span><span class="p">,</span>
                                <span class="p">[</span><span class="n">OPCODE</span><span class="o">.</span><span class="n">AARCH64</span><span class="o">.</span><span class="n">SVC</span><span class="p">]),</span>
-    <span class="n">Architecture</span><span class="o">.</span><span class="n">ARM32</span><span class="p">:</span>   <span class="n">Arch</span><span class="p">(</span><span class="s1">&#39;r0&#39;</span><span class="p">,</span> <span class="s1">&#39;pc&#39;</span><span class="p">,</span> <span class="s1">&#39;r11&#39;</span><span class="p">,</span> <span class="s1">&#39;sp&#39;</span><span class="p">,</span> <span class="s1">&#39;r7&#39;</span><span class="p">,</span>
-                               <span class="p">[</span><span class="s1">&#39;r0&#39;</span><span class="p">,</span> <span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3&#39;</span><span class="p">],</span>
+    <span class="n">Architecture</span><span class="o">.</span><span class="n">ARM32</span><span class="p">:</span>   <span class="n">Arch</span><span class="p">(</span><span class="s1">'r0'</span><span class="p">,</span> <span class="s1">'pc'</span><span class="p">,</span> <span class="s1">'r11'</span><span class="p">,</span> <span class="s1">'sp'</span><span class="p">,</span> <span class="s1">'r7'</span><span class="p">,</span>
+                               <span class="p">[</span><span class="s1">'r0'</span><span class="p">,</span> <span class="s1">'r1'</span><span class="p">,</span> <span class="s1">'r2'</span><span class="p">,</span> <span class="s1">'r3'</span><span class="p">],</span>
                                <span class="n">OPCODE</span><span class="o">.</span><span class="n">ARM32</span><span class="o">.</span><span class="n">HLT</span><span class="p">,</span>
                                <span class="p">[</span><span class="n">OPCODE</span><span class="o">.</span><span class="n">ARM32</span><span class="o">.</span><span class="n">SVC</span><span class="p">])</span>
 <span class="p">}</span>
@@ -136,7 +136,7 @@
 <div class="viewcode-block" id="CpuState">
 <a class="viewcode-back" href="../../api/process.html#tritondse.arch.CpuState">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CpuState</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Thin wrapper on a TritonContext, to allow accessing</span>
 <span class="sd">    and modifying registers in a Pythonic way. It also</span>
 <span class="sd">    abstracts base, stack, and program counter for architecture</span>
@@ -165,7 +165,7 @@
 
 <span class="sd">    .. note:: The user is not meant to instanciate it manually, and must</span>
 <span class="sd">              use it through :py:obj:`ProcessState`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">TritonContext</span><span class="p">,</span> <span class="n">arch_info</span><span class="p">:</span> <span class="n">Arch</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CpuState</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -175,24 +175,24 @@
             <span class="bp">self</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">getName</span><span class="p">()]</span> <span class="o">=</span> <span class="n">r</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the concrete value of a given register name</span>
 
 <span class="sd">        :param name: The name of the register</span>
 <span class="sd">        :return: the concrete value of a given register</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ctx</span><span class="o">.</span><span class="n">getConcreteRegisterValue</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getattr__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Set a concrete value to a given register name</span>
 
 <span class="sd">        :param name: The name of the register</span>
 <span class="sd">        :param value: The concrete value to set</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__ctx</span><span class="o">.</span><span class="n">setConcreteRegisterValue</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -200,68 +200,68 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">program_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :return: The value of the program counter (RIP for x86, PC for ARM ..)</span>
 <span class="sd">        :rtype: int</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__archinfo</span><span class="o">.</span><span class="n">pc_reg</span><span class="p">)</span>
 
     <span class="nd">@program_counter</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">program_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Set a value to the program counter</span>
 
 <span class="sd">        :param value: Value to set</span>
 <span class="sd">        :type value: int</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__archinfo</span><span class="o">.</span><span class="n">pc_reg</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">base_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :return: The value of the base pointer register</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__archinfo</span><span class="o">.</span><span class="n">bp_reg</span><span class="p">)</span>
 
     <span class="nd">@base_pointer</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">base_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Set a value to the base pointer register</span>
 
 <span class="sd">        :param value: Value to set</span>
 <span class="sd">        :return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__archinfo</span><span class="o">.</span><span class="n">bp_reg</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">stack_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :return: The value of the stack pointer register</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__archinfo</span><span class="o">.</span><span class="n">sp_reg</span><span class="p">)</span>
 
     <span class="nd">@stack_pointer</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">stack_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Set a value to the stack pointer register</span>
 
 <span class="sd">        :param value: Value to set</span>
 <span class="sd">        :type value: int</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__archinfo</span><span class="o">.</span><span class="n">sp_reg</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">local_architecture</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Architecture</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Returns the architecture of the local machine.</span>
 
 <span class="sd">    :return: local architecture</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">arch_m</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;i386&quot;</span><span class="p">:</span> <span class="n">Architecture</span><span class="o">.</span><span class="n">X86</span><span class="p">,</span>
-              <span class="s2">&quot;x86_64&quot;</span><span class="p">:</span> <span class="n">Architecture</span><span class="o">.</span><span class="n">X86_64</span><span class="p">,</span>
-              <span class="s2">&quot;armv7l&quot;</span><span class="p">:</span> <span class="n">Architecture</span><span class="o">.</span><span class="n">ARM32</span><span class="p">,</span>
-              <span class="s2">&quot;aarch64&quot;</span><span class="p">:</span> <span class="n">Architecture</span><span class="o">.</span><span class="n">AARCH64</span><span class="p">}</span>
+<span class="sd">    """</span>
+    <span class="n">arch_m</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"i386"</span><span class="p">:</span> <span class="n">Architecture</span><span class="o">.</span><span class="n">X86</span><span class="p">,</span>
+              <span class="s2">"x86_64"</span><span class="p">:</span> <span class="n">Architecture</span><span class="o">.</span><span class="n">X86_64</span><span class="p">,</span>
+              <span class="s2">"armv7l"</span><span class="p">:</span> <span class="n">Architecture</span><span class="o">.</span><span class="n">ARM32</span><span class="p">,</span>
+              <span class="s2">"aarch64"</span><span class="p">:</span> <span class="n">Architecture</span><span class="o">.</span><span class="n">AARCH64</span><span class="p">}</span>
     <span class="k">return</span> <span class="n">arch_m</span><span class="p">[</span><span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()]</span>
 </pre></div>
 

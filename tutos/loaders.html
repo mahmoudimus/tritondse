@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Loaders &mdash; TritonDSE 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
@@ -124,7 +124,7 @@
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tritondse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessState</span><span class="p">,</span> <span class="n">Program</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="n">Program</span><span class="p">(</span><span class="s2">&quot;crackme_xor&quot;</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Program</span><span class="p">(</span><span class="s2">"crackme_xor"</span><span class="p">)</span>
 
 <span class="n">ps</span> <span class="o">=</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">from_loader</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
@@ -155,7 +155,7 @@
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tritondse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessState</span><span class="p">,</span> <span class="n">CleLoader</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="n">CleLoader</span><span class="p">(</span><span class="s2">&quot;crackme_xor&quot;</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">CleLoader</span><span class="p">(</span><span class="s2">"crackme_xor"</span><span class="p">)</span>
 
 <span class="n">ps</span> <span class="o">=</span> <span class="n">ProcessState</span><span class="o">.</span><span class="n">from_loader</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
@@ -210,14 +210,14 @@
 <span class="n">STACK_ADDR</span>  <span class="o">=</span> <span class="mh">0x1000000</span>
 <span class="n">STACK_SIZE</span>  <span class="o">=</span> <span class="mi">1024</span><span class="o">*</span><span class="mi">6</span>
 
-<span class="n">raw_f</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./bugged_json_parser.bin&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+<span class="n">raw_f</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"./bugged_json_parser.bin"</span><span class="p">)</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
 
 <span class="n">ldr</span> <span class="o">=</span> <span class="n">RawBinaryLoader</span><span class="p">(</span><span class="n">Architecture</span><span class="o">.</span><span class="n">ARM32</span><span class="p">,</span>
-                       <span class="n">cpustate</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;pc&quot;</span><span class="p">:</span> <span class="n">ENTRY_POINT</span><span class="p">,</span>
-                                   <span class="s2">&quot;sp&quot;</span><span class="p">:</span> <span class="n">STACK_ADDR</span><span class="o">+</span><span class="n">STACK_SIZE</span><span class="p">},</span>
+                       <span class="n">cpustate</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"pc"</span><span class="p">:</span> <span class="n">ENTRY_POINT</span><span class="p">,</span>
+                                   <span class="s2">"sp"</span><span class="p">:</span> <span class="n">STACK_ADDR</span><span class="o">+</span><span class="n">STACK_SIZE</span><span class="p">},</span>
                        <span class="n">set_thumb</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">maps</span> <span class="o">=</span> <span class="p">[</span><span class="n">LoadableSegment</span><span class="p">(</span><span class="n">BASE_ADDRESS</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_f</span><span class="p">),</span> <span class="n">Perm</span><span class="o">.</span><span class="n">R</span><span class="o">|</span><span class="n">Perm</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">raw_f</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bugged_json_parser&quot;</span><span class="p">),</span>
-                               <span class="n">LoadableSegment</span><span class="p">(</span><span class="n">STACK_ADDR</span><span class="p">,</span> <span class="n">STACK_SIZE</span><span class="p">,</span> <span class="n">Perm</span><span class="o">.</span><span class="n">R</span><span class="o">|</span><span class="n">Perm</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;[stack]&quot;</span><span class="p">)])</span>
+                       <span class="n">maps</span> <span class="o">=</span> <span class="p">[</span><span class="n">LoadableSegment</span><span class="p">(</span><span class="n">BASE_ADDRESS</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_f</span><span class="p">),</span> <span class="n">Perm</span><span class="o">.</span><span class="n">R</span><span class="o">|</span><span class="n">Perm</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">raw_f</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"bugged_json_parser"</span><span class="p">),</span>
+                               <span class="n">LoadableSegment</span><span class="p">(</span><span class="n">STACK_ADDR</span><span class="p">,</span> <span class="n">STACK_SIZE</span><span class="p">,</span> <span class="n">Perm</span><span class="o">.</span><span class="n">R</span><span class="o">|</span><span class="n">Perm</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"[stack]"</span><span class="p">)])</span>
 <br/></pre></div>
 </div>
 </div>

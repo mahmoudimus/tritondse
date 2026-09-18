@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tritondse.seed_manager &mdash; TritonDSE 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
@@ -117,13 +117,13 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">tritondse.types</span><span class="w">             </span><span class="kn">import</span> <span class="n">SolverStatus</span><span class="p">,</span> <span class="n">SymExType</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">tritondse.logging</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">tritondse</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;seedmanager&quot;</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">tritondse</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"seedmanager"</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="SeedManager">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SeedManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Seed Manager.</span>
 <span class="sd">    This class is in charge of providing the next seed to execute by prioritizing</span>
 <span class="sd">    them. It also holds various sets of pending seeds, corpus, crashes etc. and</span>
@@ -135,9 +135,9 @@
 <span class="sd">      be selected to be run</span>
 <span class="sd">    * seed consumed (corpus, crash, hangs) which are seeds not meant to be re-executed</span>
 <span class="sd">      as they cannot lead to new paths, all candidate paths are UNSAT etc.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coverage</span><span class="p">:</span> <span class="n">GlobalCoverage</span><span class="p">,</span> <span class="n">workspace</span><span class="p">:</span> <span class="n">Workspace</span><span class="p">,</span> <span class="n">smt_queries_limit</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">callback_manager</span><span class="p">:</span> <span class="n">CallbackManager</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">seed_scheduler_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">SeedScheduler</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :param coverage: global coverage object. The instance will be updated by the seed manager</span>
 <span class="sd">        :type coverage: GlobalCoverage</span>
 <span class="sd">        :param workspace: workspace instance object.</span>
@@ -146,7 +146,7 @@
 <span class="sd">        :type smt_queries_limit: int</span>
 <span class="sd">        :param seed_scheduler_class: seed scheduler class to use as scheduling strategy</span>
 <span class="sd">        :type seed_scheduler_class: SeedScheduler</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">smt_queries_limit</span> <span class="o">=</span> <span class="n">smt_queries_limit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span> <span class="o">=</span> <span class="n">workspace</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coverage</span> <span class="o">=</span> <span class="n">coverage</span>
@@ -175,7 +175,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_time_sum</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__load_seed_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Load seed from the workspace &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">""" Load seed from the workspace """</span>
         <span class="c1"># Load seed from the corpus</span>
         <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">iter_corpus</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
@@ -195,7 +195,7 @@
 <div class="viewcode-block" id="SeedManager.is_new_seed">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.is_new_seed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_new_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Seed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Check if a seed is a new one (not into corpus, crash, hangs and fails)</span>
 
 <span class="sd">        :param seed: The seed to test</span>
@@ -204,14 +204,14 @@
 
 <span class="sd">        .. warning:: That function does not check that the seed</span>
 <span class="sd">                     is not in the pending seeds queue</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">seed</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">corpus</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">crash</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hangs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fails</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span></div>
 
 
 <div class="viewcode-block" id="SeedManager.add_seed_queue">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.add_seed_queue">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_seed_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Seed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Add a seed to the appropriate internal queue depending</span>
 <span class="sd">        on its status. If it is new it is added in pending seed,</span>
 <span class="sd">        if OK, HANG or CRASH it the appropriate set.</span>
@@ -219,7 +219,7 @@
 
 <span class="sd">        :param seed: Seed to add in an internal queue</span>
 <span class="sd">        :type seed: Seed</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Add the seed to the appropriate list</span>
         <span class="k">if</span> <span class="n">seed</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">SeedStatus</span><span class="o">.</span><span class="n">NEW</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">worklist</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
@@ -238,7 +238,7 @@
 <div class="viewcode-block" id="SeedManager.post_execution">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.post_execution">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">post_execution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">execution</span><span class="p">:</span> <span class="n">SymbolicExecutor</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Seed</span><span class="p">,</span> <span class="n">solve_new_path</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Function called after each execution. It updates the global</span>
 <span class="sd">        code coverage object, and tries to generate new paths through</span>
 <span class="sd">        SMT in accordance with the seed scheduling strategy.</span>
@@ -250,7 +250,7 @@
 <span class="sd">        :param solve_new_path: Whether to solve constraint to find new paths</span>
 <span class="sd">        :type solve_new_path: bool</span>
 <span class="sd">        :return: Total SMT solving time</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="c1"># Update instructions covered from the last execution into our exploration coverage</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">execution</span><span class="o">.</span><span class="n">coverage</span><span class="p">)</span>
@@ -258,8 +258,8 @@
 
         <span class="c1"># if the seed have target checks that we covered it</span>
         <span class="k">if</span> <span class="n">seed</span><span class="o">.</span><span class="n">target</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;YES&quot;</span><span class="p">,</span> <span class="mi">92</span><span class="p">)</span> <span class="k">if</span> <span class="n">execution</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">is_covered</span><span class="p">(</span><span class="n">seed</span><span class="o">.</span><span class="n">target</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="s2">&quot;NO&quot;</span><span class="p">,</span> <span class="mi">91</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Seed covered its target: </span><span class="se">\033</span><span class="s2">[</span><span class="si">{</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">m</span><span class="si">{</span><span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="se">\033</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"YES"</span><span class="p">,</span> <span class="mi">92</span><span class="p">)</span> <span class="k">if</span> <span class="n">execution</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">is_covered</span><span class="p">(</span><span class="n">seed</span><span class="o">.</span><span class="n">target</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="s2">"NO"</span><span class="p">,</span> <span class="mi">91</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Seed covered its target: </span><span class="se">\033</span><span class="s2">[</span><span class="si">{</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">m</span><span class="si">{</span><span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="se">\033</span><span class="s2">[0m"</span><span class="p">)</span>
 
         <span class="c1"># reset the current solving time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_solv_time</span> <span class="o">=</span> <span class="mi">0</span>
@@ -267,15 +267,15 @@
         <span class="c1"># Iterate all pending seeds to be added in the right location</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">execution</span><span class="o">.</span><span class="n">pending_seeds</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_new_seed</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="o">.</span><span class="n">coverage_objectives</span><span class="p">:</span>      <span class="c1"># If they don&#39;t have objectives set the Ellipsis wildcard</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="o">.</span><span class="n">coverage_objectives</span><span class="p">:</span>      <span class="c1"># If they don't have objectives set the Ellipsis wildcard</span>
                     <span class="n">s</span><span class="o">.</span><span class="n">coverage_objectives</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_add_seed</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>  <span class="c1"># will add the seed in both internal queues &amp; workspace</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dropping enqueued seed: </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s2"> (already seen)&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"dropping enqueued seed: </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s2"> (already seen)"</span><span class="p">)</span>
 
         <span class="c1"># Update the current seed queue</span>
         <span class="k">if</span> <span class="n">seed</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">SeedStatus</span><span class="o">.</span><span class="n">NEW</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;seed not meant to be NEW at the end of execution (</span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s2">) (dropped)&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"seed not meant to be NEW at the end of execution (</span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s2">) (dropped)"</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">drop_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">seed</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">SeedStatus</span><span class="o">.</span><span class="n">HANG</span><span class="p">,</span> <span class="n">SeedStatus</span><span class="o">.</span><span class="n">CRASH</span><span class="p">,</span> <span class="n">SeedStatus</span><span class="o">.</span><span class="n">FAIL</span><span class="p">]:</span>
@@ -288,23 +288,23 @@
                 <span class="n">seed</span><span class="o">.</span><span class="n">coverage_objectives</span> <span class="o">=</span> <span class="n">items</span>  <span class="c1"># Set its new objectives</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">worklist</span><span class="o">.</span><span class="n">can_solve_models</span><span class="p">()</span> <span class="ow">and</span> <span class="n">solve_new_path</span><span class="p">:</span>     <span class="c1"># No fresh seeds pending thus can solve model</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Seed </span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s1"> generate new coverage&#39;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Seed </span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s1"> generate new coverage'</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_generate_new_inputs</span><span class="p">(</span><span class="n">execution</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">archive_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Seed </span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s2"> push back in worklist (to unstack fresh)&quot;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Seed </span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s2"> push back in worklist (to unstack fresh)"</span><span class="p">)</span>
                     <span class="n">seed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SeedStatus</span><span class="o">.</span><span class="n">NEW</span>  <span class="c1"># Reset its status for later run</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">add_seed_queue</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>  <span class="c1"># will be pushed back in worklist</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">archive_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Seed </span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s1"> archived cannot generate new coverage [</span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Seed </span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">hash</span><span class="si">}</span><span class="s1"> archived cannot generate new coverage [</span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">]'</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="k">assert</span> <span class="kc">False</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Corpus:</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">corpus</span><span class="p">)</span><span class="si">}</span><span class="s2"> Crash:</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">crash</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Corpus:</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">corpus</span><span class="p">)</span><span class="si">}</span><span class="s2"> Crash:</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">crash</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">worklist</span><span class="o">.</span><span class="n">post_execution</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coverage instruction:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">unique_instruction_covered</span><span class="si">}</span><span class="s2"> covitem:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">unique_covitem_covered</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coverage instruction:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">unique_instruction_covered</span><span class="si">}</span><span class="s2"> covitem:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">unique_covitem_covered</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_solv_time</span></div>
 
 
@@ -315,9 +315,9 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_new_seed</span><span class="p">(</span><span class="n">new_input</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">worklist</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_input</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">save_seed</span><span class="p">(</span><span class="n">new_input</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;New seed model </span><span class="si">{</span><span class="n">new_input</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s1"> dumped [</span><span class="si">{</span><span class="n">new_input</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'New seed model </span><span class="si">{</span><span class="n">new_input</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s1"> dumped [</span><span class="si">{</span><span class="n">new_input</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">]'</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New seed </span><span class="si">{</span><span class="n">new_input</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2"> has already been generated&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"New seed </span><span class="si">{</span><span class="n">new_input</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2"> has already been generated"</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__iter_new_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">execution</span><span class="p">:</span> <span class="n">SymbolicExecutor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Seed</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
         <span class="c1"># Get the astContext</span>
@@ -340,18 +340,18 @@
                 <span class="c1"># If smt_queries_limit is zero: unlimited queries</span>
                 <span class="c1"># If smt_queries_limit is negative: no query</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">smt_queries_limit</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The configuration is defined as: no query&#39;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'The configuration is defined as: no query'</span><span class="p">)</span>
                     <span class="k">break</span>
 
                 <span class="n">typ</span><span class="p">,</span> <span class="n">p_prefix</span><span class="p">,</span> <span class="n">branch</span><span class="p">,</span> <span class="n">covitem</span><span class="p">,</span> <span class="n">ith</span> <span class="o">=</span> <span class="n">path_generator</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
 
                 <span class="c1"># Create edge in case of conditional branch, for all the other the edge shall be already set</span>
-                <span class="n">edge</span> <span class="o">=</span> <span class="p">(</span><span class="n">branch</span><span class="p">[</span><span class="s1">&#39;srcAddr&#39;</span><span class="p">],</span> <span class="n">branch</span><span class="p">[</span><span class="s1">&#39;dstAddr&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">SymExType</span><span class="o">.</span><span class="n">CONDITIONAL_JMP</span> <span class="k">else</span> <span class="n">covitem</span>
+                <span class="n">edge</span> <span class="o">=</span> <span class="p">(</span><span class="n">branch</span><span class="p">[</span><span class="s1">'srcAddr'</span><span class="p">],</span> <span class="n">branch</span><span class="p">[</span><span class="s1">'dstAddr'</span><span class="p">])</span> <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">SymExType</span><span class="o">.</span><span class="n">CONDITIONAL_JMP</span> <span class="k">else</span> <span class="n">covitem</span>
 
                 <span class="c1"># Add path_prefix in path predicate (regardless on whether we solve the item or not)</span>
                 <span class="n">path_predicate</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">getTakenPredicate</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">p_prefix</span><span class="p">)</span>
 
-                <span class="n">expr</span> <span class="o">=</span> <span class="n">branch</span><span class="p">[</span><span class="s1">&#39;constraint&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">SymExType</span><span class="o">.</span><span class="n">CONDITIONAL_JMP</span> <span class="k">else</span> <span class="n">branch</span>
+                <span class="n">expr</span> <span class="o">=</span> <span class="n">branch</span><span class="p">[</span><span class="s1">'constraint'</span><span class="p">]</span> <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">SymExType</span><span class="o">.</span><span class="n">CONDITIONAL_JMP</span> <span class="k">else</span> <span class="n">branch</span>
 
                 <span class="c1"># Call on_branch_solving, if one replies False does not solve the branch</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cbm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -378,12 +378,12 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_update_solve_stats</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">solve_time</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
 
                     <span class="n">results</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>   <span class="c1"># extract results</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;pc:</span><span class="si">{</span><span class="n">ith</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">total_len</span><span class="si">}</span><span class="s1"> | Query n°</span><span class="si">{</span><span class="n">smt_queries</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">smt_queries</span><span class="o">+</span><span class="n">count</span><span class="si">}</span><span class="s1">, enumerate:</span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s1"> (time: </span><span class="si">{</span><span class="n">solve_time</span><span class="si">:</span><span class="s1">.02f</span><span class="si">}</span><span class="s1">s) values:[</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_pp_smt_status</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'pc:</span><span class="si">{</span><span class="n">ith</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">total_len</span><span class="si">}</span><span class="s1"> | Query n°</span><span class="si">{</span><span class="n">smt_queries</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">smt_queries</span><span class="o">+</span><span class="n">count</span><span class="si">}</span><span class="s1">, enumerate:</span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s1"> (time: </span><span class="si">{</span><span class="n">solve_time</span><span class="si">:</span><span class="s1">.02f</span><span class="si">}</span><span class="s1">s) values:[</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_pp_smt_status</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="si">}</span><span class="s1">]'</span><span class="p">)</span>
                     <span class="n">smt_queries</span> <span class="o">+=</span> <span class="n">count</span><span class="o">+</span><span class="mi">1</span>  <span class="c1"># for the unsat</span>
 
                 <span class="k">elif</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">SymExType</span><span class="o">.</span><span class="n">CONDITIONAL_JMP</span><span class="p">:</span>
                     <span class="c1"># if debug_pp=True solve the branch that has been taken</span>
-                    <span class="n">branch_cst</span> <span class="o">=</span> <span class="n">actx</span><span class="o">.</span><span class="n">lnot</span><span class="p">(</span><span class="n">branch</span><span class="p">[</span><span class="s1">&#39;constraint&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="n">execution</span><span class="o">.</span><span class="n">debug_pp</span> <span class="k">else</span> <span class="n">branch</span><span class="p">[</span><span class="s1">&#39;constraint&#39;</span><span class="p">]</span>
+                    <span class="n">branch_cst</span> <span class="o">=</span> <span class="n">actx</span><span class="o">.</span><span class="n">lnot</span><span class="p">(</span><span class="n">branch</span><span class="p">[</span><span class="s1">'constraint'</span><span class="p">])</span> <span class="k">if</span> <span class="n">execution</span><span class="o">.</span><span class="n">debug_pp</span> <span class="k">else</span> <span class="n">branch</span><span class="p">[</span><span class="s1">'constraint'</span><span class="p">]</span>
                     <span class="n">constraint</span> <span class="o">=</span> <span class="n">actx</span><span class="o">.</span><span class="n">land</span><span class="p">(</span><span class="n">path_predicate</span> <span class="o">+</span> <span class="p">[</span><span class="n">branch_cst</span><span class="p">])</span>
 
                     <span class="c1"># Solve the constraint</span>
@@ -393,7 +393,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_update_solve_stats</span><span class="p">(</span><span class="n">covitem</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">solve_time</span><span class="p">)</span>
                     <span class="n">results</span> <span class="o">=</span> <span class="p">[(</span><span class="n">model</span><span class="p">,</span> <span class="n">covitem</span><span class="p">)]</span>
                     <span class="n">smt_queries</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;pc:</span><span class="si">{</span><span class="n">ith</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">total_len</span><span class="si">}</span><span class="s1"> | Query n°</span><span class="si">{</span><span class="n">smt_queries</span><span class="si">}</span><span class="s1">, solve:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">pp_item</span><span class="p">(</span><span class="n">covitem</span><span class="p">)</span><span class="si">}</span><span class="s1"> (time: </span><span class="si">{</span><span class="n">solve_time</span><span class="si">:</span><span class="s1">.02f</span><span class="si">}</span><span class="s1">s) [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_pp_smt_status</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'pc:</span><span class="si">{</span><span class="n">ith</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">total_len</span><span class="si">}</span><span class="s1"> | Query n°</span><span class="si">{</span><span class="n">smt_queries</span><span class="si">}</span><span class="s1">, solve:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">pp_item</span><span class="p">(</span><span class="n">covitem</span><span class="p">)</span><span class="si">}</span><span class="s1"> (time: </span><span class="si">{</span><span class="n">solve_time</span><span class="si">:</span><span class="s1">.02f</span><span class="si">}</span><span class="s1">s) [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_pp_smt_status</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="si">}</span><span class="s1">]'</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">assert</span> <span class="kc">False</span>
 
@@ -410,7 +410,7 @@
 
                 <span class="c1"># Check if we reached the limit of query</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">smt_queries_limit</span> <span class="ow">and</span> <span class="n">smt_queries</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smt_queries_limit</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Limit of query reached. Stop asking for models&#39;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Limit of query reached. Stop asking for models'</span><span class="p">)</span>
                     <span class="k">break</span>
 
         <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>  <span class="c1"># We have iterated the whole path generator</span>
@@ -421,7 +421,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_solv_time_sum</span> <span class="o">+=</span> <span class="n">solving_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_solv_time</span> <span class="o">+=</span> <span class="n">solving_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_solv_status</span><span class="p">[</span><span class="n">status</span><span class="p">]</span> <span class="o">+=</span> <span class="n">count</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Solve stats: solve_count=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_solv_count</span><span class="si">}</span><span class="s1"> solving_time=</span><span class="si">{</span><span class="n">solving_time</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> solve_time_sum=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_solv_time_sum</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> current_solve_time=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_solv_time</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> solv_status=</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_solv_status</span><span class="p">[</span><span class="n">status</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Solve stats: solve_count=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_solv_count</span><span class="si">}</span><span class="s1"> solving_time=</span><span class="si">{</span><span class="n">solving_time</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> solve_time_sum=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_solv_time_sum</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> current_solve_time=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_solv_time</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> solv_status=</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_solv_status</span><span class="p">[</span><span class="n">status</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">covitem</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">SolverStatus</span><span class="o">.</span><span class="n">SAT</span><span class="p">:</span>
@@ -434,53 +434,53 @@
 <div class="viewcode-block" id="SeedManager.pick_seed">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.pick_seed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">pick_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Seed</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Get the next seed to be executed by querying it</span>
 <span class="sd">        in the seed scheduler.</span>
 
 <span class="sd">        :returns: Seed to execute from the pending seeds</span>
 <span class="sd">        :rtype: Seed</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">worklist</span><span class="o">.</span><span class="n">pick</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="SeedManager.seeds_available">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.seeds_available">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">seeds_available</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Checks whether there is still pending seeds to process.</span>
 
 <span class="sd">        :returns: True if seeds are still pending</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">worklist</span><span class="o">.</span><span class="n">has_seed_remaining</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="SeedManager.add_new_seed">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.add_new_seed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_new_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Seed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Add the given seed in the manager.</span>
 <span class="sd">        The function uses its type to know where to add the seed.</span>
 
 <span class="sd">        :param seed: seed to add</span>
 <span class="sd">        :type seed: Seed</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_new_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Seed </span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s1"> dumped [</span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Seed </span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s1"> dumped [</span><span class="si">{</span><span class="n">seed</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">]'</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;seed </span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s2"> is already known (not adding it)&quot;</span><span class="p">)</span></div>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"seed </span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s2"> is already known (not adding it)"</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_add_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Seed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Add the seed in both internal queues but also workspace &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">""" Add the seed in both internal queues but also workspace """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_seed_queue</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">save_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SeedManager.drop_seed">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.drop_seed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">drop_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Seed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Drop a seed that is not of interest anymore.</span>
 <span class="sd">        The function thus switch its status to ``OK_DONE``</span>
 <span class="sd">        and move it in the corpus. *(the seed is not removed</span>
@@ -488,14 +488,14 @@
 
 <span class="sd">        :param seed: seed object to drop</span>
 <span class="sd">        :type seed: Seed</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">archive_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SeedManager.archive_seed">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.archive_seed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">archive_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Seed</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="n">SeedStatus</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Send a seed in the corpus. As such, the seed</span>
 <span class="sd">        is not meant to be used anymore (for finding</span>
 <span class="sd">        new seeds).</span>
@@ -504,7 +504,7 @@
 <span class="sd">        :type seed: Seed</span>
 <span class="sd">        :param status: optional status to assign the seed</span>
 <span class="sd">        :type status: SeedStatus</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
             <span class="n">seed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_seed_queue</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>  <span class="c1"># Will put it in the corpus</span>
@@ -514,48 +514,48 @@
 <div class="viewcode-block" id="SeedManager.post_exploration">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.post_exploration">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">post_exploration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Function called at the end of exploration. It performs</span>
 <span class="sd">        some stats printing, but would also perform any clean</span>
 <span class="sd">        up tasks. *(not meant to be called by the user)*</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Do things you would do at the very end of exploration</span>
         <span class="c1"># (or just before it becomes idle)</span>
         <span class="n">stats</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;total_solving_time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_time_sum</span><span class="p">,</span>
-            <span class="s2">&quot;total_solving_attempt&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_count</span><span class="p">,</span>
-            <span class="s2">&quot;branch_reverted&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stat_branch_reverted</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>  <span class="c1"># convert covitem to str whatever it is</span>
-            <span class="s2">&quot;branch_not_solved&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stat_branch_fail</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>    <span class="c1"># convert covitem to str whatever it is</span>
-            <span class="s2">&quot;UNSAT&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_status</span><span class="p">[</span><span class="n">SolverStatus</span><span class="o">.</span><span class="n">UNSAT</span><span class="p">],</span>
-            <span class="s2">&quot;SAT&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_status</span><span class="p">[</span><span class="n">SolverStatus</span><span class="o">.</span><span class="n">SAT</span><span class="p">],</span>
-            <span class="s2">&quot;TIMEOUT&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_status</span><span class="p">[</span><span class="n">SolverStatus</span><span class="o">.</span><span class="n">TIMEOUT</span><span class="p">]</span>
+            <span class="s2">"total_solving_time"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_time_sum</span><span class="p">,</span>
+            <span class="s2">"total_solving_attempt"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_count</span><span class="p">,</span>
+            <span class="s2">"branch_reverted"</span><span class="p">:</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stat_branch_reverted</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>  <span class="c1"># convert covitem to str whatever it is</span>
+            <span class="s2">"branch_not_solved"</span><span class="p">:</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stat_branch_fail</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>    <span class="c1"># convert covitem to str whatever it is</span>
+            <span class="s2">"UNSAT"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_status</span><span class="p">[</span><span class="n">SolverStatus</span><span class="o">.</span><span class="n">UNSAT</span><span class="p">],</span>
+            <span class="s2">"SAT"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_status</span><span class="p">[</span><span class="n">SolverStatus</span><span class="o">.</span><span class="n">SAT</span><span class="p">],</span>
+            <span class="s2">"TIMEOUT"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solv_status</span><span class="p">[</span><span class="n">SolverStatus</span><span class="o">.</span><span class="n">TIMEOUT</span><span class="p">]</span>
         <span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">save_metadata_file</span><span class="p">(</span><span class="s2">&quot;solving_stats.json&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Branches reverted: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stat_branch_reverted</span><span class="p">)</span><span class="si">}</span><span class="s2">  Branches still fail: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stat_branch_fail</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">save_metadata_file</span><span class="p">(</span><span class="s2">"solving_stats.json"</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Branches reverted: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stat_branch_reverted</span><span class="p">)</span><span class="si">}</span><span class="s2">  Branches still fail: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stat_branch_fail</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">worklist</span><span class="o">.</span><span class="n">post_exploration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="p">)</span></div>
 
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_pp_smt_status</span><span class="p">(</span><span class="n">status</span><span class="p">:</span> <span class="n">SolverStatus</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; The pretty print function of the solver status &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">""" The pretty print function of the solver status """</span>
         <span class="n">mapper</span> <span class="o">=</span> <span class="p">{</span><span class="n">SolverStatus</span><span class="o">.</span><span class="n">SAT</span><span class="p">:</span> <span class="mi">92</span><span class="p">,</span> <span class="n">SolverStatus</span><span class="o">.</span><span class="n">UNSAT</span><span class="p">:</span> <span class="mi">91</span><span class="p">,</span> <span class="n">SolverStatus</span><span class="o">.</span><span class="n">TIMEOUT</span><span class="p">:</span> <span class="mi">93</span><span class="p">,</span> <span class="n">SolverStatus</span><span class="o">.</span><span class="n">UNKNOWN</span><span class="p">:</span> <span class="mi">95</span><span class="p">}</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[</span><span class="si">{</span><span class="n">mapper</span><span class="p">[</span><span class="n">status</span><span class="p">]</span><span class="si">}</span><span class="s2">m</span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="se">\033</span><span class="s2">[</span><span class="si">{</span><span class="n">mapper</span><span class="p">[</span><span class="n">status</span><span class="p">]</span><span class="si">}</span><span class="s2">m</span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\033</span><span class="s2">[0m"</span>
 
 <div class="viewcode-block" id="SeedManager.pp_meta_filename">
 <a class="viewcode-back" href="../../api/explorator.html#tritondse.seed_manager.SeedManager.pp_meta_filename">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">pp_meta_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">covitem</span><span class="p">:</span> <span class="n">CovItem</span><span class="p">,</span> <span class="n">typ</span><span class="p">:</span> <span class="n">SymExType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;pretty-print a covitem&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""pretty-print a covitem"""</span>
         <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">SymExType</span><span class="o">.</span><span class="n">CONDITIONAL_JMP</span><span class="p">:</span>
             <span class="n">pp_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coverage</span><span class="o">.</span><span class="n">pp_item</span><span class="p">(</span><span class="n">covitem</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">pp_item</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">covitem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">#08x</span><span class="si">}</span><span class="s2">:@[</span><span class="si">{</span><span class="n">covitem</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">#08x</span><span class="si">}</span><span class="s2">])&quot;</span>
+            <span class="n">pp_item</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">covitem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">#08x</span><span class="si">}</span><span class="s2">:@[</span><span class="si">{</span><span class="n">covitem</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">#08x</span><span class="si">}</span><span class="s2">])"</span>
         <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">SymExType</span><span class="o">.</span><span class="n">CONDITIONAL_JMP</span><span class="p">:</span> <span class="s2">&quot;CC&quot;</span><span class="p">,</span>
-            <span class="n">SymExType</span><span class="o">.</span><span class="n">SYMBOLIC_READ</span><span class="p">:</span> <span class="s2">&quot;SR&quot;</span><span class="p">,</span>
-            <span class="n">SymExType</span><span class="o">.</span><span class="n">SYMBOLIC_WRITE</span><span class="p">:</span> <span class="s2">&quot;SW&quot;</span><span class="p">,</span>
-            <span class="n">SymExType</span><span class="o">.</span><span class="n">DYNAMIC_JMP</span><span class="p">:</span> <span class="s2">&quot;DYN&quot;</span>
+            <span class="n">SymExType</span><span class="o">.</span><span class="n">CONDITIONAL_JMP</span><span class="p">:</span> <span class="s2">"CC"</span><span class="p">,</span>
+            <span class="n">SymExType</span><span class="o">.</span><span class="n">SYMBOLIC_READ</span><span class="p">:</span> <span class="s2">"SR"</span><span class="p">,</span>
+            <span class="n">SymExType</span><span class="o">.</span><span class="n">SYMBOLIC_WRITE</span><span class="p">:</span> <span class="s2">"SW"</span><span class="p">,</span>
+            <span class="n">SymExType</span><span class="o">.</span><span class="n">DYNAMIC_JMP</span><span class="p">:</span> <span class="s2">"DYN"</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mapping</span><span class="p">[</span><span class="n">typ</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">pp_item</span><span class="si">}</span><span class="s2">&quot;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">mapping</span><span class="p">[</span><span class="n">typ</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">pp_item</span><span class="si">}</span><span class="s2">"</span></div>
 </div>
 
 </pre></div>

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tritondse.types &mdash; TritonDSE 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
@@ -116,63 +116,63 @@
 
 
 <span class="n">PathLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span>
-<span class="sd">&quot;&quot;&quot;Type representing file either as a file, either as a Path object&quot;&quot;&quot;</span>
+<span class="sd">"""Type representing file either as a file, either as a Path object"""</span>
 
 <span class="n">Addr</span> <span class="o">=</span> <span class="nb">int</span>
-<span class="sd">&quot;&quot;&quot;Integer representing an address&quot;&quot;&quot;</span>
+<span class="sd">"""Integer representing an address"""</span>
 
 <span class="n">rAddr</span> <span class="o">=</span> <span class="nb">int</span>
-<span class="sd">&quot;&quot;&quot;Integer representing a relative address&quot;&quot;&quot;</span>
+<span class="sd">"""Integer representing a relative address"""</span>
 
 <span class="n">BitSize</span> <span class="o">=</span> <span class="nb">int</span>
-<span class="sd">&quot;&quot;&quot;Integer representing a value in bits&quot;&quot;&quot;</span>
+<span class="sd">"""Integer representing a value in bits"""</span>
 
 <span class="n">ByteSize</span> <span class="o">=</span> <span class="nb">int</span>
-<span class="sd">&quot;&quot;&quot;Integer representing a value in bytes&quot;&quot;&quot;</span>
+<span class="sd">"""Integer representing a value in bytes"""</span>
 
 <span class="n">Input</span> <span class="o">=</span> <span class="nb">bytes</span>
-<span class="sd">&quot;&quot;&quot; Type representing an Input (which is bytes) &quot;&quot;&quot;</span>
+<span class="sd">""" Type representing an Input (which is bytes) """</span>
 
-<span class="n">Register</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;Register&#39;</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot;Register identifier as used by Triton *(not the Register object itself)*&quot;&quot;&quot;</span>
+<span class="n">Register</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'Register'</span><span class="p">)</span>
+<span class="sd">"""Register identifier as used by Triton *(not the Register object itself)*"""</span>
 
-<span class="n">Registers</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;Registers&#39;</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot;Set of registers as used by Triton&quot;&quot;&quot;</span>
+<span class="n">Registers</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'Registers'</span><span class="p">)</span>
+<span class="sd">"""Set of registers as used by Triton"""</span>
 
-<span class="n">PathConstraint</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;PathConstraint&#39;</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot; `PathConstraint &lt;https://triton.quarkslab.com/documentation/doxygen/py_PathConstraint_page.html&gt;`_ object as returned by Triton&quot;&quot;&quot;</span>
+<span class="n">PathConstraint</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'PathConstraint'</span><span class="p">)</span>
+<span class="sd">""" `PathConstraint &lt;https://triton.quarkslab.com/documentation/doxygen/py_PathConstraint_page.html&gt;`_ object as returned by Triton"""</span>
 
-<span class="n">AstNode</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;AstNode&#39;</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot; SMT logic formula as returned by Triton (`AstNode &lt;https://triton.quarkslab.com/documentation/doxygen/py_AstNode_page.html&gt;`_) &quot;&quot;&quot;</span>
+<span class="n">AstNode</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'AstNode'</span><span class="p">)</span>
+<span class="sd">""" SMT logic formula as returned by Triton (`AstNode &lt;https://triton.quarkslab.com/documentation/doxygen/py_AstNode_page.html&gt;`_) """</span>
 
-<span class="n">Model</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot; Solver `Model &lt;https://triton.quarkslab.com/documentation/doxygen/py_SolverModel_page.html&gt;`_ as returned by Triton &quot;&quot;&quot;</span>
+<span class="n">Model</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'Model'</span><span class="p">)</span>
+<span class="sd">""" Solver `Model &lt;https://triton.quarkslab.com/documentation/doxygen/py_SolverModel_page.html&gt;`_ as returned by Triton """</span>
 
-<span class="n">Expression</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;Expression&#39;</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot; Symbolic Expression as returned by Triton (`SymbolicExpression &lt;https://triton.quarkslab.com/documentation/doxygen/py_SymbolicExpression_page.html&gt;`_) &quot;&quot;&quot;</span>
+<span class="n">Expression</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'Expression'</span><span class="p">)</span>
+<span class="sd">""" Symbolic Expression as returned by Triton (`SymbolicExpression &lt;https://triton.quarkslab.com/documentation/doxygen/py_SymbolicExpression_page.html&gt;`_) """</span>
 
-<span class="n">SymbolicVariable</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;SymbolicVariable&#39;</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot; Symbolic Variable as returned by Triton (`SymbolicVariable &lt;https://triton.quarkslab.com/documentation/doxygen/py_SymbolicVariable_page.html&gt;`_) &quot;&quot;&quot;</span>
+<span class="n">SymbolicVariable</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'SymbolicVariable'</span><span class="p">)</span>
+<span class="sd">""" Symbolic Variable as returned by Triton (`SymbolicVariable &lt;https://triton.quarkslab.com/documentation/doxygen/py_SymbolicVariable_page.html&gt;`_) """</span>
 
 <span class="n">Edge</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Addr</span><span class="p">,</span> <span class="n">Addr</span><span class="p">]</span>
-<span class="sd">&quot;&quot;&quot; Type representing a edge in the program &quot;&quot;&quot;</span>
+<span class="sd">""" Type representing a edge in the program """</span>
 
 <span class="n">PathHash</span> <span class="o">=</span> <span class="nb">str</span>
-<span class="sd">&quot;&quot;&quot;Type representing the hash of path to uniquely identify any path &quot;&quot;&quot;</span>
+<span class="sd">"""Type representing the hash of path to uniquely identify any path """</span>
 
 
 <div class="viewcode-block" id="SymExType">
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.SymExType">[docs]</a>
 <span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SymExType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Symbolic Expression type enum. (internal usage only)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">CONDITIONAL_JMP</span> <span class="o">=</span> <span class="s1">&#39;cond-jcc&#39;</span>  <span class="c1"># doc: symbolic expression is a conditional jump</span>
-    <span class="n">DYNAMIC_JMP</span> <span class="o">=</span> <span class="s1">&#39;dyn-jmp&#39;</span>       <span class="c1"># doc: symbolic expression is a dynamic jump</span>
-    <span class="n">SYMBOLIC_READ</span> <span class="o">=</span> <span class="s1">&#39;sym-read&#39;</span>    <span class="c1"># doc: symbolic expression is a symbolic memory read</span>
-    <span class="n">SYMBOLIC_WRITE</span> <span class="o">=</span> <span class="s1">&#39;sym-write&#39;</span>  <span class="c1"># doc: symbolic expression is a symbolic memory write</span></div>
+    <span class="n">CONDITIONAL_JMP</span> <span class="o">=</span> <span class="s1">'cond-jcc'</span>  <span class="c1"># doc: symbolic expression is a conditional jump</span>
+    <span class="n">DYNAMIC_JMP</span> <span class="o">=</span> <span class="s1">'dyn-jmp'</span>       <span class="c1"># doc: symbolic expression is a dynamic jump</span>
+    <span class="n">SYMBOLIC_READ</span> <span class="o">=</span> <span class="s1">'sym-read'</span>    <span class="c1"># doc: symbolic expression is a symbolic memory read</span>
+    <span class="n">SYMBOLIC_WRITE</span> <span class="o">=</span> <span class="s1">'sym-write'</span>  <span class="c1"># doc: symbolic expression is a symbolic memory write</span></div>
 
 
 
@@ -182,30 +182,30 @@
 <div class="viewcode-block" id="PathBranch">
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.PathBranch">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">PathBranch</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Typed dictionary describing the branch information</span>
 <span class="sd">        returned by Triton (with getBranchConstraints())</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">isTaken</span><span class="p">:</span> <span class="nb">bool</span>
         <span class="n">srcAddr</span><span class="p">:</span> <span class="n">Addr</span>
         <span class="n">dstAddr</span><span class="p">:</span> <span class="n">Addr</span>
         <span class="n">constraint</span><span class="p">:</span> <span class="n">AstNode</span></div>
 
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">PathBranch</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;PathBranch&#39;</span><span class="p">)</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; PathBranchobject as returned by Triton.</span>
+    <span class="n">PathBranch</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'PathBranch'</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">""" PathBranchobject as returned by Triton.</span>
 <span class="sd">    Thus it is a dictionary with the keys:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 
 <div class="viewcode-block" id="Architecture">
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.Architecture">[docs]</a>
 <span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Architecture</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Common architecture Enum fully compatible with Triton</span>
 <span class="sd">    `ARCH &lt;https://triton.quarkslab.com/documentation/doxygen/py_ARCH_page.html&gt;`_</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">AARCH64</span> <span class="o">=</span> <span class="n">ARCH</span><span class="o">.</span><span class="n">AARCH64</span>  <span class="c1"># doc: Aarch64 architecture</span>
     <span class="n">ARM32</span> <span class="o">=</span> <span class="n">ARCH</span><span class="o">.</span><span class="n">ARM32</span>      <span class="c1"># doc: ARM architecture (32 bits)</span>
     <span class="n">X86</span> <span class="o">=</span> <span class="n">ARCH</span><span class="o">.</span><span class="n">X86</span>          <span class="c1"># doc: x86 architecture (32 bits)</span>
@@ -217,10 +217,10 @@
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.ArchMode">[docs]</a>
 <span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">ArchMode</span><span class="p">(</span><span class="n">IntFlag</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Various architecture specific modes that can be enabled or disabled.</span>
 <span class="sd">    (meant to be fulfilled)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">THUMB</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1"># doc: set thumb mode for ARM32 architecture</span></div>
 
 
@@ -229,9 +229,9 @@
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.Platform">[docs]</a>
 <span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Platform</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Platform associated to a binary</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">LINUX</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>    <span class="c1"># doc: Linux platform</span>
     <span class="n">WINDOWS</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># doc: Windows platform</span>
     <span class="n">MACOS</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>    <span class="c1"># doc: Mac OS platform</span>
@@ -244,7 +244,7 @@
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.SmtSolver">[docs]</a>
 <span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SmtSolver</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Common SMT Solver Enum fully compatible with Triton &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">""" Common SMT Solver Enum fully compatible with Triton """</span>
     <span class="n">Z3</span> <span class="o">=</span> <span class="n">SOLVER</span><span class="o">.</span><span class="n">Z3</span>              <span class="c1"># doc: Z3 SMT solver</span>
     <span class="n">BITWUZLA</span> <span class="o">=</span> <span class="n">SOLVER</span><span class="o">.</span><span class="n">BITWUZLA</span>  <span class="c1"># doc: bitwuzla solver</span></div>
 
@@ -254,7 +254,7 @@
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.SolverStatus">[docs]</a>
 <span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SolverStatus</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Common Solver Enum fully compatible with Triton ARCH &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">""" Common Solver Enum fully compatible with Triton ARCH """</span>
     <span class="n">SAT</span>     <span class="o">=</span> <span class="n">SOLVER_STATE</span><span class="o">.</span><span class="n">SAT</span>      <span class="c1"># doc: Formula is satisfiable (SAT)</span>
     <span class="n">UNSAT</span>   <span class="o">=</span> <span class="n">SOLVER_STATE</span><span class="o">.</span><span class="n">UNSAT</span>    <span class="c1"># doc: Formula is unsatisfiable (UNSAT)</span>
     <span class="n">TIMEOUT</span> <span class="o">=</span> <span class="n">SOLVER_STATE</span><span class="o">.</span><span class="n">TIMEOUT</span>  <span class="c1"># doc: Formula solving did timeout</span>
@@ -266,14 +266,14 @@
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.Perm">[docs]</a>
 <span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Perm</span><span class="p">(</span><span class="n">IntFlag</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Flags encoding permissions. Used for memory pages.</span>
 <span class="sd">    They can be combined as flags. e.g:</span>
 
 <span class="sd">    .. code-block:: python</span>
 
 <span class="sd">        rw = Perm.R | Perm.W</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">R</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># doc: Read</span>
     <span class="n">W</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># doc: Write</span>
     <span class="n">X</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># doc: Execute</span></div>
@@ -284,9 +284,9 @@
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.Endian">[docs]</a>
 <span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Endian</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Endianness of the binary.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">LITTLE</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># doc: Little-endian</span>
     <span class="n">BIG</span> <span class="o">=</span> <span class="mi">2</span>     <span class="c1"># doc: Big-endian</span></div>
 
@@ -296,9 +296,9 @@
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.Format">[docs]</a>
 <span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Format</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Executable File Format</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">ELF</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>    <span class="c1"># doc: ELF file format</span>
     <span class="n">PE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>     <span class="c1"># doc: PE file format</span>
     <span class="n">MACHO</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># doc: Mach-O file format</span></div>
@@ -309,14 +309,14 @@
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.FileDesc">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">FileDesc</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Type representing a file descriptor</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; The target program&#39;s file descriptor &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
+<span class="w">    </span><span class="sd">""" The target program's file descriptor """</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Name of the file &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">""" Name of the file """</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; The python file stream object &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">""" The python file stream object """</span>
     <span class="n">fd</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">IOBase</span>
 
     <span class="nd">@property</span>
@@ -338,18 +338,18 @@
 <div class="viewcode-block" id="FileDesc.fgets">
 <a class="viewcode-back" href="../../api/types.html#tritondse.types.FileDesc.fgets">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fgets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Performs a fgets on the file descriptor.</span>
 <span class="sd">        Warning: It does not add a trailing \x00 if reaching a \n or EOF.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+<span class="sd">        """</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">""</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_size</span><span class="p">):</span>
             <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="p">:</span>  <span class="c1"># EOF</span>
                 <span class="k">break</span>
             <span class="n">c</span> <span class="o">=</span> <span class="n">c</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span> <span class="k">else</span> <span class="n">c</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
             <span class="n">s</span> <span class="o">+=</span> <span class="n">c</span>
-            <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="sa">b</span><span class="s2">"</span><span class="se">\x00</span><span class="s2">"</span><span class="p">,</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">s</span>
 
         <span class="c1"># If get there read max_size</span>

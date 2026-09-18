@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tritondse.heap_allocator &mdash; TritonDSE 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
@@ -107,13 +107,13 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">tritondse.exception</span><span class="w"> </span><span class="kn">import</span> <span class="n">AllocatorException</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">tritondse.logging</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">tritondse</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;heapallocator&#39;</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">tritondse</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'heapallocator'</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="HeapAllocator">
 <a class="viewcode-back" href="../../api/process.html#tritondse.heap_allocator.HeapAllocator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">HeapAllocator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Custom tiny heap allocator. Used by built-ins routines like malloc/free.</span>
 <span class="sd">    This allocation manager also provides an API enabling checking whether</span>
 <span class="sd">    a pointer is allocated freed etc.</span>
@@ -121,10 +121,10 @@
 <span class="sd">    .. warning:: This allocator is very simple and does not perform any</span>
 <span class="sd">                 coalescing of freed memory areas. Thus, it may not correctly</span>
 <span class="sd">                 model the behavior of libc allocator.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">Addr</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="n">Addr</span><span class="p">,</span> <span class="n">memory</span><span class="p">:</span> <span class="n">Memory</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Class constructor. Takes heap bounds as parameter.</span>
 
 <span class="sd">        :param start: Where the heap area can start</span>
@@ -132,7 +132,7 @@
 <span class="sd">        :param end: Where the heap area must end</span>
 <span class="sd">        :type start: :py:obj:`tritondse.types.Addr`</span>
 <span class="sd">        :param memory: Memory: Memory object on which to perform allocations</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Range of the memory mapping</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">:</span> <span class="n">Addr</span> <span class="o">=</span> <span class="n">start</span>
         <span class="c1">#: Starting address of the heap</span>
@@ -153,7 +153,7 @@
 <div class="viewcode-block" id="HeapAllocator.alloc">
 <a class="viewcode-back" href="../../api/process.html#tritondse.heap_allocator.HeapAllocator.alloc">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">alloc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">ByteSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Addr</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Performs an allocation of the given byte size.</span>
 
 <span class="sd">        :param size: Byte size to allocate</span>
@@ -161,10 +161,10 @@
 <span class="sd">        :raise AllocatorException: if not memory is available</span>
 <span class="sd">        :return: The pointer address allocated</span>
 <span class="sd">        :rtype: :py:obj:`tritondse.types.Addr`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">if</span> <span class="n">size</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Heap: invalid allocation size </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Heap: invalid allocation size </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">return</span> <span class="mi">0</span>
 
         <span class="n">ptr</span> <span class="o">=</span> <span class="kc">None</span>
@@ -182,7 +182,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_curr_offset</span> <span class="o">+=</span> <span class="n">size</span>
 
         <span class="c1"># Now we can allocate the chunk</span>
-        <span class="n">mmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">Perm</span><span class="o">.</span><span class="n">R</span> <span class="o">|</span> <span class="n">Perm</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="s1">&#39;heap&#39;</span><span class="p">)</span>
+        <span class="n">mmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">Perm</span><span class="o">.</span><span class="n">R</span> <span class="o">|</span> <span class="n">Perm</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="s1">'heap'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alloc_pool</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">ptr</span><span class="p">:</span> <span class="n">mmap</span><span class="p">})</span>
 
         <span class="k">return</span> <span class="n">ptr</span></div>
@@ -191,18 +191,18 @@
 <div class="viewcode-block" id="HeapAllocator.free">
 <a class="viewcode-back" href="../../api/process.html#tritondse.heap_allocator.HeapAllocator.free">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">Addr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Free the given memory chunk.</span>
 
 <span class="sd">        :param ptr: Address to free</span>
 <span class="sd">        :type ptr: :py:obj:`tritondse.types.Addr`</span>
 <span class="sd">        :raise AllocatorException: if the pointer has already been freed or if it has never been allocated</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ptr_freed</span><span class="p">(</span><span class="n">ptr</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">AllocatorException</span><span class="p">(</span><span class="s1">&#39;Double free or corruption!&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">AllocatorException</span><span class="p">(</span><span class="s1">'Double free or corruption!'</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ptr_allocated</span><span class="p">(</span><span class="n">ptr</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">AllocatorException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid pointer (</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">AllocatorException</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Invalid pointer (</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="si">}</span><span class="s1">)'</span><span class="p">)</span>
 
         <span class="c1"># Add the chunk into our free_pool</span>
         <span class="n">memmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alloc_pool</span><span class="p">[</span><span class="n">ptr</span><span class="p">]</span>
@@ -219,26 +219,26 @@
 <div class="viewcode-block" id="HeapAllocator.is_ptr_allocated">
 <a class="viewcode-back" href="../../api/process.html#tritondse.heap_allocator.HeapAllocator.is_ptr_allocated">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_ptr_allocated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">Addr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Check whether a given address has been allocated</span>
 
 <span class="sd">        :param ptr: Address to check</span>
 <span class="sd">        :type ptr: :py:obj:`tritondse.types.Addr`</span>
 <span class="sd">        :return: True if pointer points to an allocated memory region</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memory</span><span class="o">.</span><span class="n">is_mapped</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="HeapAllocator.is_ptr_freed">
 <a class="viewcode-back" href="../../api/process.html#tritondse.heap_allocator.HeapAllocator.is_ptr_freed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_ptr_freed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ptr</span><span class="p">:</span> <span class="n">Addr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Check whether a given pointer has recently been freed.</span>
 
 <span class="sd">        :param ptr: Address to check</span>
 <span class="sd">        :type ptr: :py:obj:`tritondse.types.Addr`</span>
 <span class="sd">        :return: True if pointer has been freed, False otherwise</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># FIXME: This function is linear in the size of chunks. Can make it logarithmic</span>
         <span class="k">for</span> <span class="n">size</span><span class="p">,</span> <span class="n">chunks</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_pool</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
